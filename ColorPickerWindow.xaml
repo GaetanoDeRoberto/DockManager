@@ -1,0 +1,179 @@
+﻿<Window x:Class="DockManager.ColorPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DockManager"
+        mc:Ignorable="d"
+        Title="Scegli colore"
+        Height="430"
+        Width="500"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#202020"
+        Foreground="White">
+    
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- AREA SELEZIONE COLORE -->
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Quadrato saturazione / luminosità -->
+            <Border x:Name="ColorArea"
+            Width="320"
+            Height="260"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Cursor="Cross"
+            MouseLeftButtonDown="ColorArea_MouseLeftButtonDown"
+            MouseMove="ColorArea_MouseMove"
+            MouseLeftButtonUp="ColorArea_MouseLeftButtonUp">
+
+                <Grid>
+
+                    <!-- Saturazione -->
+                    <Border x:Name="SaturationLayer">
+                        <Border.Background>
+                            <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="1,0">
+
+                                <GradientStop Color="White"
+                                  Offset="0"/>
+
+                                <GradientStop Color="Red"
+                                  Offset="1"/>
+
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+
+                    <!-- Luminosità -->
+                    <Border x:Name="ValueLayer">
+
+                        <Border.Background>
+                            <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="0,1">
+
+                                <GradientStop Color="#00FFFFFF"
+                                  Offset="0"/>
+
+                                <GradientStop Color="#FF000000"
+                                  Offset="1"/>
+
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Barra tonalità -->
+            <Border x:Name="HueBar"
+                MouseLeftButtonDown="HueBar_MouseLeftButtonDown"
+                MouseMove="HueBar_MouseMove"
+                MouseLeftButtonUp="HueBar_MouseLeftButtonUp"
+                Grid.Column="1"
+                Width="22"
+                Height="260"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Cursor="Hand">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="0,1">
+
+                        <GradientStop Color="Red"
+                                  Offset="0"/>
+
+                        <GradientStop Color="Yellow"
+                                  Offset="0.17"/>
+
+                        <GradientStop Color="Lime"
+                                  Offset="0.33"/>
+
+                        <GradientStop Color="Cyan"
+                                  Offset="0.50"/>
+
+                        <GradientStop Color="Blue"
+                                  Offset="0.67"/>
+
+                        <GradientStop Color="Magenta"
+                                  Offset="0.83"/>
+
+                        <GradientStop Color="Red"
+                                  Offset="1"/>
+
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ANTEPRIMA + HEX -->
+        <Grid Grid.Row="1"
+          Margin="0,15,0,15">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Colore:"
+                   VerticalAlignment="Center"/>
+
+            <Border x:Name="ColorPreview"
+                Grid.Column="1"
+                Height="35"
+                BorderBrush="#666666"
+                BorderThickness="1"
+                Margin="10,0"/>
+
+            <TextBox x:Name="HexTextBox"
+                Grid.Column="2"
+                Width="70"
+                Text="#202020"
+                VerticalContentAlignment="Center"
+                Background="#2A2A2A"
+                Foreground="White"
+                BorderBrush="#555555"/>
+
+        </Grid>
+
+
+        <!-- PULSANTI -->
+        <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+
+            <Button Content="Annulla"
+                Width="90"
+                Margin="0,0,10,0"
+                Click="Cancel_Click"/>
+
+            <Button Content="OK"
+                Width="90"
+                Click="Ok_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
