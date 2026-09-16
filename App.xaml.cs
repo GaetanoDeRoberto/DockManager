@@ -149,13 +149,17 @@ public partial class App : Application
     // SALVATAGGIO
     // =====================================================
 
-    private void SaveDockConfig(
-        DockConfig config)
+    private void SaveDockConfig(DockConfig config)
     {
+        Directory.CreateDirectory(docksFolder);
+
         string file =
             Path.Combine(
                 docksFolder,
                 $"{config.Id}.json");
+
+        string tempFile =
+            file + ".tmp";
 
         string json =
             JsonSerializer.Serialize(
@@ -166,8 +170,13 @@ public partial class App : Application
                 });
 
         File.WriteAllText(
-            file,
+            tempFile,
             json);
+
+        File.Move(
+            tempFile,
+            file,
+            true);
     }
 
     // =====================================================

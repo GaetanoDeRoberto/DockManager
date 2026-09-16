@@ -1691,6 +1691,9 @@ public partial class DockWindow : Window
                     configFolder,
                     $"{config.Id}.json");
 
+            string tempFile =
+                file + ".tmp";
+
             string json =
                 JsonSerializer.Serialize(
                     config,
@@ -1700,8 +1703,13 @@ public partial class DockWindow : Window
                     });
 
             File.WriteAllText(
-                file,
+                tempFile,
                 json);
+
+            File.Move(
+                tempFile,
+                file,
+                true);
         }
         catch (Exception ex)
         {
