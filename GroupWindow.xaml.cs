@@ -564,26 +564,39 @@ public partial class GroupWindow : Window
     {
         try
         {
-            string folder = Path.Combine(
-                Environment.GetFolderPath(
-                    Environment.SpecialFolder.ApplicationData),
-                "DockManager",
-                "docks");
+            string folder =
+                Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.ApplicationData),
+                    "DockManager",
+                    "docks");
 
             Directory.CreateDirectory(folder);
 
-            string file = Path.Combine(
-                folder,
-                $"{config.Id}.json");
+            string file =
+                Path.Combine(
+                    folder,
+                    $"{config.Id}.json");
 
-            string json = JsonSerializer.Serialize(
-                config,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                });
+            string tempFile =
+                file + ".tmp";
 
-            File.WriteAllText(file, json);
+            string json =
+                JsonSerializer.Serialize(
+                    config,
+                    new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+
+            File.WriteAllText(
+                tempFile,
+                json);
+
+            File.Move(
+                tempFile,
+                file,
+                true);
         }
         catch (Exception ex)
         {
